@@ -18,7 +18,6 @@ public:
 	AGrid();
 	std::vector<AShape*> floaters;
 	std::vector<AShape*> fallers;
-	TSubclassOf<class AShape> ShapeClass;
 
 protected:
 	// Called when the game starts or when spawned

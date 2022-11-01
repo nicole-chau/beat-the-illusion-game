@@ -3,7 +3,6 @@
 
 #include "Grid.h"
 
-#include "UObject/ConstructorHelpers.h"
 #include "Kismet/KismetMathLibrary.h"
 
 #define WIDTH 5
@@ -17,11 +16,6 @@ AGrid::AGrid()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	static ConstructorHelpers::FObjectFinder<UBlueprint> Shape(TEXT("Blueprint'/Game/Blueprints/ShapeBP.ShapeBP'"));
-	if (Shape.Object) {
-		ShapeClass = (UClass*)Shape.Object->GeneratedClass;
-	}
 }
 
 // Called when the game starts or when spawned
@@ -48,9 +42,8 @@ void AGrid::SpawnFloater() {
 	
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(xPos, yPos, zPos) * CELL_SIZE;
-	AShape* shape = World->SpawnActor<AShape>(ShapeClass, spawnPos, FRotator(0.f));
-	if (shape == nullptr) {
-		GEngine->AddOnScreenDebugMessage(-3, 5.0, FColor::Green, "shape is null");
-	}
-	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "SpawnFloater finished called meowmeowmeow");
+	AShape* shape = World->SpawnActor<AShape>(AShape::StaticClass(), spawnPos, FRotator(0.f));
+
+	shape->gridPos = FIntVector(xPos, yPos, zPos);
+	shape->generateProperties();
 }

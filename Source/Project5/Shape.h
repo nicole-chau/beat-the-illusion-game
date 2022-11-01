@@ -8,6 +8,18 @@
 #include "GameFramework/Actor.h"
 #include "Shape.generated.h"
 
+enum ShapeType {
+	CYLINDER,
+	CONE,
+	PRISM
+};
+
+enum ShapeColor {
+	RED,
+	BLUE,
+	GREEN
+};
+
 UCLASS()
 class PROJECT5_API AShape : public AActor
 {
@@ -16,7 +28,18 @@ class PROJECT5_API AShape : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AShape();
-	AShape(FIntVector position);
+	FIntVector gridPos;
+	ShapeType type;
+	ShapeColor color;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UStaticMeshComponent* mesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UStaticMesh* cylinderMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UStaticMesh* coneMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UStaticMesh* prismMesh;
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,5 +48,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	void generateProperties();
 };
