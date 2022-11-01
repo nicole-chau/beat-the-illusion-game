@@ -28,11 +28,11 @@ AShape::AShape()
 	coneMesh = ConeAsset.Object;
 
 	static ConstructorHelpers::FObjectFinder<UMaterial> RedAsset
-		(TEXT("Material/'Game/Materials/RedMaterial.RedMaterial'"));
+		(TEXT("Material'/Game/Materials/RedMaterial.RedMaterial'"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> BlueAsset
 		(TEXT("Material'/Game/Materials/BlueMaterial.BlueMaterial'"));
 	static ConstructorHelpers::FObjectFinder<UMaterial> GreenAsset
-		(TEXT("Material/'Game/Materials/GreenMaterial.GreenMaterial'"));
+		(TEXT("Material'/Game/Materials/GreenMaterial.GreenMaterial'"));
 
 	redMat = RedAsset.Object;
 	blueMat = BlueAsset.Object;
