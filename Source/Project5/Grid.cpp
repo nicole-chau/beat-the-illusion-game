@@ -23,7 +23,7 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 20; ++i) {
 		SpawnFloater();
 	}
 }
@@ -35,15 +35,30 @@ void AGrid::Tick(float DeltaTime)
 
 }
 
+bool alreadyContains(const std::vector<AShape*>& list, FIntVector gridPos) {
+	for (auto& shape : list) {
+		if (shape->gridPos == gridPos) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void AGrid::SpawnFloater() {
-	int xPos = UKismetMathLibrary::RandomInteger(DEPTH);
-	int yPos = UKismetMathLibrary::RandomInteger(WIDTH);
-	int zPos = UKismetMathLibrary::RandomInteger(HEIGHT);
+
+	FIntVector gridPos;
+	do {
+		int xPos = UKismetMathLibrary::RandomInteger(DEPTH);
+		int yPos = UKismetMathLibrary::RandomInteger(WIDTH);
+		int zPos = UKismetMathLibrary::RandomInteger(HEIGHT);
+
+		gridPos = FIntVector(xPos, yPos, zPos);
+	} while (alreadyContains(floaters, gridPos) || alreadyContains(fallers, gridPos));
 	
 	UWorld* const World = GetWorld();
-	FVector spawnPos = FVector(xPos, yPos, zPos) * CELL_SIZE;
+	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
 	AShape* shape = World->SpawnActor<AShape>(AShape::StaticClass(), spawnPos, FRotator(0.f));
 
-	shape->gridPos = FIntVector(xPos, yPos, zPos);
+	shape->gridPos = gridPos;
 	shape->generateProperties();
 }
