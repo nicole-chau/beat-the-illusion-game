@@ -13,5 +13,7 @@ UCLASS()
 class PROJECT5_API AFaller : public AShape
 {
 	GENERATED_BODY()
-	
+public:
+	FIntVector2 xyPos;
+	//void generateProperties() override;
 };

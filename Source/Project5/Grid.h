@@ -20,6 +20,9 @@ public:
 	std::vector<AFloater*> floaters;
 	std::vector<AFaller*> fallers;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class AFloater> FloaterClass;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

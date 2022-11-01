@@ -16,6 +16,12 @@ AGrid::AGrid()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	static ConstructorHelpers::FObjectFinder<UBlueprint>
+		Floater(TEXT("Blueprint'/Game/Blueprints/FloaterBP.FloaterBP'"));
+	if (Floater.Object) {
+		FloaterClass = (UClass*) Floater.Object->GeneratedClass;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -57,7 +63,7 @@ void AGrid::SpawnFloater() {
 	
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
-	AFloater* floater = World->SpawnActor<AFloater>(AFloater::StaticClass(), spawnPos, FRotator(0.f));
+	AFloater* floater = World->SpawnActor<AFloater>(FloaterClass, spawnPos, FRotator(0.f));
 
 	floater->gridPos = gridPos;
 	floater->generateProperties();

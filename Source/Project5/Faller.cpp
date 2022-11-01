@@ -3,3 +3,8 @@
 
 #include "Faller.h"
 
+//void AFaller::generateProperties() {
+//  AShape::generateProperties();
+//
+//
+//}
