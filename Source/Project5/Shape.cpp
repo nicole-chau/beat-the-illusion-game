@@ -14,6 +14,8 @@ AShape::AShape()
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
 	//SetRootComponent(mesh);
 	mesh->SetupAttachment(GetRootComponent());
+	//mesh->SetSimulatePhysics(true);
+	//mesh->SetNotifyRigidBodyCollision(true);
 
 	cylinderMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("cylinderMesh"));
 	prismMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("prismMesh"));
@@ -57,12 +59,9 @@ void AShape::generateProperties() {
 	int shapeType = UKismetMathLibrary::RandomInteger(3);
 	type = static_cast<ShapeType>(shapeType);
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "shape type = " + shapeType);
-
 	switch (type) {
 	case PRISM:
 		mesh->SetStaticMesh(prismMesh);
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "not cyllinder");
 		break;
 	case CYLINDER:
 		mesh->SetStaticMesh(cylinderMesh);
