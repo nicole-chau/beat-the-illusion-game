@@ -4,12 +4,13 @@
 #include "Grid.h"
 
 #include "UObject/ConstructorHelpers.h"
+#include "Kismet/KismetMathLibrary.h"
 
 #define WIDTH 5
 #define HEIGHT 5
 #define DEPTH 3
 
-#define CELL_SIZE 1
+#define CELL_SIZE 8
 
 // Sets default values
 AGrid::AGrid()
@@ -28,7 +29,9 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SpawnFloater();
+	for (int i = 0; i < 100; ++i) {
+		SpawnFloater();
+	}
 }
 
 // Called every frame
@@ -39,13 +42,13 @@ void AGrid::Tick(float DeltaTime)
 }
 
 void AGrid::SpawnFloater() {
-	int xPos = rand() / WIDTH;
-	int zPos = rand() / HEIGHT;
-	int yPos = rand() / DEPTH;
+	int xPos = UKismetMathLibrary::RandomInteger(DEPTH);
+	int yPos = UKismetMathLibrary::RandomInteger(WIDTH);
+	int zPos = UKismetMathLibrary::RandomInteger(HEIGHT);
 	
 	UWorld* const World = GetWorld();
-	FVector spawnPos = FVector(xPos, yPos, zPos);
-	AShape* shape = World->SpawnActor<AShape>(ShapeClass, FVector(0), FRotator(0.f));
+	FVector spawnPos = FVector(xPos, yPos, zPos) * CELL_SIZE;
+	AShape* shape = World->SpawnActor<AShape>(ShapeClass, spawnPos, FRotator(0.f));
 	if (shape == nullptr) {
 		GEngine->AddOnScreenDebugMessage(-3, 5.0, FColor::Green, "shape is null");
 	}
