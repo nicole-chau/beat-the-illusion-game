@@ -2,27 +2,30 @@
 
 #pragma once
 
+#include "Shape.h"
+
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 #include "Grid.generated.h"
 
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class PROJECT5_API UGrid : public UActorComponent
+UCLASS()
+class PROJECT5_API AGrid : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:	
-	// Sets default values for this component's properties
-	UGrid();
+	// Sets default values for this actor's properties
+	AGrid();
+	std::vector<AShape*> floaters;
+	std::vector<AShape*> fallers;
+	TSubclassOf<class AShape> ShapeClass;
 
 protected:
-	// Called when the game starts
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	virtual void Tick(float DeltaTime) override;
+	void SpawnFloater();
 };

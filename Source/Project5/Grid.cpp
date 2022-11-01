@@ -3,32 +3,51 @@
 
 #include "Grid.h"
 
-// Sets default values for this component's properties
-UGrid::UGrid()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+#include "UObject/ConstructorHelpers.h"
 
-	// ...
+#define WIDTH 5
+#define HEIGHT 5
+#define DEPTH 3
+
+#define CELL_SIZE 1
+
+// Sets default values
+AGrid::AGrid()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	static ConstructorHelpers::FObjectFinder<UBlueprint> Shape(TEXT("Blueprint'/Game/Blueprints/ShapeBP.ShapeBP'"));
+	if (Shape.Object) {
+		ShapeClass = (UClass*)Shape.Object->GeneratedClass;
+	}
 }
 
-
-// Called when the game starts
-void UGrid::BeginPlay()
+// Called when the game starts or when spawned
+void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 	
+	SpawnFloater();
 }
-
 
 // Called every frame
-void UGrid::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void AGrid::Tick(float DeltaTime)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Super::Tick(DeltaTime);
 
-	// ...
 }
 
+void AGrid::SpawnFloater() {
+	int xPos = rand() / WIDTH;
+	int zPos = rand() / HEIGHT;
+	int yPos = rand() / DEPTH;
+	
+	UWorld* const World = GetWorld();
+	FVector spawnPos = FVector(xPos, yPos, zPos);
+	AShape* shape = World->SpawnActor<AShape>(ShapeClass, FVector(0), FRotator(0.f));
+	if (shape == nullptr) {
+		GEngine->AddOnScreenDebugMessage(-3, 5.0, FColor::Green, "shape is null");
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "SpawnFloater finished called meowmeowmeow");
+}
