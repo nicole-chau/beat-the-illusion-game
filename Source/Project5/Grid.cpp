@@ -35,7 +35,7 @@ void AGrid::Tick(float DeltaTime)
 
 }
 
-bool alreadyContains(const std::vector<AShape*>& list, FIntVector gridPos) {
+bool alreadyContains(const std::vector<AFloater*>& list, FIntVector gridPos) {
 	for (auto& shape : list) {
 		if (shape->gridPos == gridPos) {
 			return true;
@@ -53,12 +53,14 @@ void AGrid::SpawnFloater() {
 		int zPos = UKismetMathLibrary::RandomInteger(HEIGHT);
 
 		gridPos = FIntVector(xPos, yPos, zPos);
-	} while (alreadyContains(floaters, gridPos) || alreadyContains(fallers, gridPos));
+	} while (alreadyContains(floaters, gridPos));
 	
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
-	AShape* shape = World->SpawnActor<AShape>(AShape::StaticClass(), spawnPos, FRotator(0.f));
+	AFloater* floater = World->SpawnActor<AFloater>(AFloater::StaticClass(), spawnPos, FRotator(0.f));
 
-	shape->gridPos = gridPos;
-	shape->generateProperties();
+	floater->gridPos = gridPos;
+	floater->generateProperties();
+
+	floaters.push_back(floater);
 }

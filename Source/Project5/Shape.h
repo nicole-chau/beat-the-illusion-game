@@ -28,7 +28,6 @@ class PROJECT5_API AShape : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AShape();
-	FIntVector gridPos;
 	ShapeType type;
 	ShapeColor color;
 	

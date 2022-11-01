@@ -4,6 +4,7 @@
 #include "Engine/StaticMesh.h"
 
 #include "Kismet/KismetMathLibrary.h"
+#include "Math/Vector.h"
 
 // Sets default values
 AShape::AShape()
@@ -88,4 +89,11 @@ void AShape::generateProperties() {
 
 	//mesh->AttachParent = RootComponent;
 	mesh->SetRelativeScale3D(FVector(2, 2, 2));
+
+	// Generate random orientation about the z-axis
+	FVector axisVector = FVector(0, 0, 1);
+	int orientation = UKismetMathLibrary::RandomInteger(4);
+
+	FQuat rotation(axisVector, PI / 2 * orientation);
+	mesh->SetRelativeRotation(rotation);
 }

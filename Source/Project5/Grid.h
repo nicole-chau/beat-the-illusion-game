@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include "Shape.h"
+#include "Floater.h"
+#include "Faller.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -16,8 +17,8 @@ class PROJECT5_API AGrid : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AGrid();
-	std::vector<AShape*> floaters;
-	std::vector<AShape*> fallers;
+	std::vector<AFloater*> floaters;
+	std::vector<AFaller*> fallers;
 
 protected:
 	// Called when the game starts or when spawned
