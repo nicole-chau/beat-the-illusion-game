@@ -12,25 +12,31 @@ AShape::AShape()
 	PrimaryActorTick.bCanEverTick = true;
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
-	SetRootComponent(mesh);
-	//mesh->SetupAttachment(GetRootComponent());
+	//SetRootComponent(mesh);
+	mesh->SetupAttachment(GetRootComponent());
 
 	cylinderMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("cylinderMesh"));
 	prismMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("prismMesh"));
 	coneMesh = CreateDefaultSubobject<UStaticMesh>(TEXT("coneMesh"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> CylinderAsset(TEXT("StaticMesh'/Game/Assets/cylinder.cylinder'"));
-
-	//if (!CylinderAsset.Succeeded()) {
-	//	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "nullinder finished meowmeowmeow");
-	//}
-
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> PrismAsset(TEXT("StaticMesh/'Game/Assets/prism.prism'"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ConeAsset(TEXT("StaticMesh'/Game/Assets/cone.cone'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> CylinderAsset(TEXT("StaticMesh'/Game/Assets/cylinder.cylinder'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> PrismAsset(TEXT("StaticMesh'/Game/Assets/prism.prism'"));
 
 	cylinderMesh = CylinderAsset.Object;
 	prismMesh = PrismAsset.Object;
 	coneMesh = ConeAsset.Object;
+
+	static ConstructorHelpers::FObjectFinder<UMaterial> RedAsset
+		(TEXT("Material/'Game/Materials/RedMaterial.RedMaterial'"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> BlueAsset
+		(TEXT("Material'/Game/Materials/BlueMaterial.BlueMaterial'"));
+	static ConstructorHelpers::FObjectFinder<UMaterial> GreenAsset
+		(TEXT("Material/'Game/Materials/GreenMaterial.GreenMaterial'"));
+
+	redMat = RedAsset.Object;
+	blueMat = BlueAsset.Object;
+	greenMat = GreenAsset.Object;
 }
 
 // Called when the game starts or when spawned
@@ -51,16 +57,15 @@ void AShape::generateProperties() {
 	int shapeType = UKismetMathLibrary::RandomInteger(3);
 	type = static_cast<ShapeType>(shapeType);
 
-	if (cylinderMesh == nullptr) {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "nullinder finished meowmeowmeow");
-	}
+	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "shape type = " + shapeType);
 
 	switch (type) {
-	case CYLINDER:
-		mesh->SetStaticMesh(cylinderMesh);
-		break;
 	case PRISM:
 		mesh->SetStaticMesh(prismMesh);
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, "not cyllinder");
+		break;
+	case CYLINDER:
+		mesh->SetStaticMesh(cylinderMesh);
 		break;
 	case CONE:
 		mesh->SetStaticMesh(coneMesh);
@@ -70,24 +75,17 @@ void AShape::generateProperties() {
 	int colorRand = UKismetMathLibrary::RandomInteger(3);
 	color = static_cast<ShapeColor>(colorRand);
 
-	//RedMaterial = ConstructorHelpers::FObjectFinder<UMaterialInterface>
-	//	(TEXT("Material/'Game/Materials/RedMaterial.RedMaterial'"));
-	//BlueMaterial = ConstructorHelpers::FObjectFinder<UMaterialInterface>
-	//	(TEXT("Material'/Game/Materials/BlueMaterial.BlueMaterial'"));
-	//GreenMaterial = ConstructorHelpers::FObjectFinder<UMaterialInterface>
-	//	(TEXT("Material/'Game/Materials/GreenMaterial.GreenMaterial'"));
-
-	//switch (color) {
-	//case RED:
-	//	mesh->SetMaterial(0, RedMaterial.Object);
-	//	break;
-	//case BLUE:
-	//	mesh->SetMaterial(0, BlueMaterial.Object);
-	//	break;
-	//case GREEN:
-	//	mesh->SetMaterial(0, GreenMaterial.Object);
-	//	break;
-	//}
+	switch (color) {
+	case RED:
+		mesh->SetMaterial(0, redMat);
+		break;
+	case BLUE:
+		mesh->SetMaterial(0, blueMat);
+		break;
+	case GREEN:
+		mesh->SetMaterial(0, greenMat);
+		break;
+	}
 
 	//mesh->AttachParent = RootComponent;
 	mesh->SetRelativeScale3D(FVector(2, 2, 2));

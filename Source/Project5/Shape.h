@@ -41,6 +41,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		class UStaticMesh* prismMesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UMaterial* redMat;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UMaterial* greenMat;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		class UMaterial* blueMat;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
