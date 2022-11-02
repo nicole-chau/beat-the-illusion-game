@@ -35,11 +35,11 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		SpawnFloater();
 	}
 
-	SpawnFaller();
+	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, 5.0f, true, 0.0f);
 }
 
 // Called every frame

@@ -4,6 +4,7 @@
 
 #include "Floater.h"
 #include "Faller.h"
+#include "TimerManager.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -19,6 +20,7 @@ public:
 	AGrid();
 	std::vector<AFloater*> floaters;
 	std::vector<AFaller*> fallers;
+	FTimerHandle fallerTimer;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class AFloater> FloaterClass;
