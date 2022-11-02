@@ -22,6 +22,12 @@ AGrid::AGrid()
 	if (Floater.Object) {
 		FloaterClass = (UClass*) Floater.Object->GeneratedClass;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UBlueprint>
+		Faller(TEXT("Blueprint'/Game/Blueprints/FallerBP.FallerBP'"));
+	if (Faller.Object) {
+		FallerClass = (UClass*)Faller.Object->GeneratedClass;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -29,9 +35,11 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		SpawnFloater();
 	}
+
+	SpawnFaller();
 }
 
 // Called every frame
@@ -70,3 +78,21 @@ void AGrid::SpawnFloater() {
 
 	floaters.push_back(floater);
 }
+
+void AGrid::SpawnFaller() {
+
+	int xPos = UKismetMathLibrary::RandomInteger(DEPTH);
+	int yPos = UKismetMathLibrary::RandomInteger(WIDTH);
+
+	FIntVector2 xyPos(xPos, yPos);
+
+	UWorld* const World = GetWorld();
+	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 1) * CELL_SIZE;
+	AFaller* faller = World->SpawnActor<AFaller>(FallerClass, spawnPos, FRotator(0.f));
+
+	faller->xyPos = xyPos;
+	faller->generateProperties();
+
+	// TODO: add to faller list
+}
+

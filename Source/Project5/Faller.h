@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "GameFramework/ProjectileMovementComponent.h"
+
 #include "CoreMinimal.h"
 #include "Shape.h"
 #include "Faller.generated.h"
@@ -14,6 +16,10 @@ class PROJECT5_API AFaller : public AShape
 {
 	GENERATED_BODY()
 public:
+	AFaller();
 	FIntVector2 xyPos;
-	//void generateProperties() override;
+	void generateProperties() override;
+
+	// Projectile movement component
+	//UProjectileMovementComponent* ProjectileMovement;
 };

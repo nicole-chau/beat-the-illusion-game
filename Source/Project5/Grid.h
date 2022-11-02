@@ -23,6 +23,10 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class AFloater> FloaterClass;
 
+	UPROPERTY(EditDefaultsOnly)
+		TSubclassOf<class AFaller> FallerClass;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -31,4 +35,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void SpawnFloater();
+	void SpawnFaller();
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Math/IntVector.h"
+#include "Components/BoxComponent.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -46,6 +47,8 @@ public:
 		class UMaterial* greenMat;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		class UMaterial* blueMat;
+
+	UBoxComponent* BoxComponent;
 
 protected:
 	// Called when the game starts or when spawned

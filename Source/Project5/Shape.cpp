@@ -12,9 +12,18 @@ AShape::AShape()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("shapeBox"));
+	//RootComponent = BoxComponent;
+	//BoxComponent->InitBoxExtent(FVector(1.0f));
+	//BoxComponent->SetCollisionProfileName(TEXT("BlockAllDynamic"));
+	//BoxComponent->SetSimulatePhysics(true);
+	//BoxComponent->SetEnableGravity(false);
+	//BoxComponent->SetNotifyRigidBodyCollision(true);
+
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
-	//SetRootComponent(mesh);
-	mesh->SetupAttachment(GetRootComponent());
+	mesh->SetupAttachment(RootComponent);
+	//RootComponent = mesh;
+	//mesh->SetupAttachment(GetRootComponent());
 	//mesh->SetSimulatePhysics(true);
 	//mesh->SetNotifyRigidBodyCollision(true);
 
