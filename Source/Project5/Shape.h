@@ -9,6 +9,8 @@
 #include "GameFramework/Actor.h"
 #include "Shape.generated.h"
 
+class AGrid;
+
 enum ShapeType {
 	CYLINDER,
 	CONE,
@@ -49,6 +51,7 @@ public:
 		class UMaterial* blueMat;
 
 	UBoxComponent* BoxComponent;
+	AGrid* grid;
 
 protected:
 	// Called when the game starts or when spawned

@@ -5,12 +5,6 @@
 
 #include "Kismet/KismetMathLibrary.h"
 
-#define WIDTH 5
-#define HEIGHT 5
-#define DEPTH 3
-
-#define CELL_SIZE 8
-
 // Sets default values
 AGrid::AGrid()
 {
@@ -35,11 +29,11 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	for (int i = 0; i < 8; ++i) {
+	for (int i = 0; i < NUM_FLOATERS; ++i) {
 		SpawnFloater();
 	}
 
-	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, 5.0f, true, 0.0f);
+	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 }
 
 // Called every frame
@@ -49,8 +43,8 @@ void AGrid::Tick(float DeltaTime)
 
 }
 
-bool alreadyContains(const std::vector<AFloater*>& list, FIntVector gridPos) {
-	for (auto& shape : list) {
+bool AGrid::AlreadyContainsFloater(FIntVector gridPos) {
+	for (auto& shape : floaters) {
 		if (shape->gridPos == gridPos) {
 			return true;
 		}
@@ -67,7 +61,7 @@ void AGrid::SpawnFloater() {
 		int zPos = UKismetMathLibrary::RandomInteger(HEIGHT);
 
 		gridPos = FIntVector(xPos, yPos, zPos);
-	} while (alreadyContains(floaters, gridPos));
+	} while (AlreadyContainsFloater(gridPos));
 	
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
@@ -75,6 +69,7 @@ void AGrid::SpawnFloater() {
 
 	floater->gridPos = gridPos;
 	floater->generateProperties();
+	floater->grid = this;
 
 	floaters.push_back(floater);
 }
@@ -92,6 +87,7 @@ void AGrid::SpawnFaller() {
 
 	faller->xyPos = xyPos;
 	faller->generateProperties();
+	faller->grid = this;
 
 	// TODO: add to faller list
 }

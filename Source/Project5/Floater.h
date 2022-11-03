@@ -6,6 +6,8 @@
 #include "Shape.h"
 #include "Floater.generated.h"
 
+class AGrid;
+
 /**
  * 
  */
@@ -15,6 +17,14 @@ class PROJECT5_API AFloater : public AShape
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY(BlueprintReadWrite)
 	FIntVector gridPos;
+	
+	UFUNCTION(BlueprintCallable)
+	void setNewPosition();
 
+	UFUNCTION()
+		void onHit(AActor* SelfActor, class AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	void BeginPlay() override;
 };

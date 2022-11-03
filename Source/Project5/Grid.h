@@ -10,6 +10,18 @@
 #include "GameFramework/Actor.h"
 #include "Grid.generated.h"
 
+class AFloater;
+
+#define WIDTH 5
+#define HEIGHT 5
+#define DEPTH 3
+
+#define NUM_FLOATERS 8
+
+#define SPAWN_INTERVAL 10.0f
+
+#define CELL_SIZE 8
+
 UCLASS()
 class PROJECT5_API AGrid : public AActor
 {
@@ -38,4 +50,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void SpawnFloater();
 	void SpawnFaller();
+	bool AlreadyContainsFloater(FIntVector gridPos);
 };
