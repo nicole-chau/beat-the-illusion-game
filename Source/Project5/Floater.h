@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include "SoundDefinitions.h"
+#include "Sound/SoundCue.h"
+
 #include "CoreMinimal.h"
 #include "Shape.h"
 #include "Floater.generated.h"
@@ -22,6 +25,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	FIntVector gridPos;
 	
+	AFloater();
 	UFUNCTION(BlueprintCallable)
 	void setNewPosition();
 
@@ -32,4 +36,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		FDelegate HitDelegate;
+
+	TSubclassOf<class AActor> Success;
+	USoundCue* successSoundCue;
 };

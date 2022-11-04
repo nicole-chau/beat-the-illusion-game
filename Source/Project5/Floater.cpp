@@ -4,7 +4,15 @@
 #include "Floater.h"
 #include "Grid.h"
 
+#include "UObject/ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
+
 #include "Math/UnrealMathUtility.h"
+
+AFloater::AFloater() {
+    static ConstructorHelpers::FObjectFinder<USoundCue> successSound(TEXT("SoundCue'/Game/Assets/Sounds/SuccessSound.SuccessSound'"));
+    successSoundCue = (USoundCue*)successSound.Object;
+}
 
 bool inRange(int n, int max) {
   return n >= 0 && n < max;
@@ -67,5 +75,10 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     OtherActor->Destroy();
 
     HitDelegate.Execute();
+
+    UWorld* const World = GetWorld();
+    if (World) {
+        UGameplayStatics::PlaySoundAtLocation(World, successSoundCue, GetActorLocation());
+    }
   }
 }
