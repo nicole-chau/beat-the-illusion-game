@@ -8,6 +8,8 @@
 #include "Shape.h"
 #include "Faller.generated.h"
 
+class AGrid;
+
 /**
  * 
  */
@@ -23,4 +25,6 @@ public:
 	UProjectileMovementComponent* ProjectileMovement;
 
 	void SetSpeed(float speed);
+	void IsOffScreen();
+	virtual void Tick(float DeltaTime) override;
 };

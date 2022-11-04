@@ -17,7 +17,7 @@ class AFloater;
 #define HEIGHT 5
 #define DEPTH 3
 
-#define NUM_FLOATERS 8
+#define NUM_FLOATERS 4
 
 #define SPAWN_INTERVAL 10.0f
 
@@ -48,7 +48,6 @@ public:
 		int32 score;
 
 	float fallerSpeed;
-
 
 protected:
 	// Called when the game starts or when spawned

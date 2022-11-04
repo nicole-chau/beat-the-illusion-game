@@ -73,6 +73,7 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     }
 
     grid->SpawnFloater();
+    grid->SpawnFaller();
 
     Destroy();
     OtherActor->Destroy();

@@ -34,10 +34,11 @@ void AGrid::BeginPlay()
 		SpawnFloater();
 	}
 
-	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
-
+	//GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 	score = 0;
 	fallerSpeed = 3.f;
+	SpawnFaller();
+
 }
 
 // Called every frame
@@ -87,7 +88,6 @@ void AGrid::SpawnFloater() {
 }
 
 void AGrid::SpawnFaller() {
-
 	int xPos = UKismetMathLibrary::RandomInteger(DEPTH);
 	int yPos = UKismetMathLibrary::RandomInteger(WIDTH);
 
@@ -114,6 +114,10 @@ void AGrid::IncrementScore() {
 	score += 10;
 	if (score % 100 == 0) {
 		fallerSpeed += 1.5f;
+	}
+
+	if (score % 20 == 0) {
+		SpawnFloater();
 	}
 }
 

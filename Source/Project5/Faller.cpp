@@ -2,6 +2,8 @@
 
 
 #include "Faller.h"
+#include "Grid.h"
+
 
 AFaller::AFaller() {
   //PrimaryActorTick.bCanEverTick = true;
@@ -22,8 +24,23 @@ AFaller::AFaller() {
   ProjectileMovement->ProjectileGravityScale = 0.0f;
 }
 
+void AFaller::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	IsOffScreen();
+
+}
+
 void AFaller::SetSpeed(float speed) {
 	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, -speed);
 	ProjectileMovement->InitialSpeed = speed;
 	ProjectileMovement->MaxSpeed = speed;
+}
+
+void AFaller::IsOffScreen() {
+	FVector currentLocation = this->GetActorLocation();
+	if (currentLocation.Z < -13) {
+		Destroy();
+		grid->SpawnFaller();
+	}
 }
