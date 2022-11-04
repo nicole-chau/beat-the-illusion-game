@@ -30,6 +30,8 @@ void AFloater::setNewPosition() {
   if (!inRange(newGridPos.X, DEPTH)
         || !inRange(newGridPos.Y, WIDTH)) {
     this->SetActorLocation(originalLocation);
+    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("set new position"));
+
     return;
   }
 
@@ -42,6 +44,8 @@ void AFloater::setNewPosition() {
   // Otherwise, move the floater to its new home
   this->gridPos = newGridPos;
   this->SetActorLocation(FVector(newGridPos) * CELL_SIZE);
+
+
 }
 
 void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit) {
@@ -61,5 +65,7 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
 
     Destroy();
     OtherActor->Destroy();
+
+    HitDelegate.Execute();
   }
 }

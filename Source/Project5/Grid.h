@@ -41,6 +41,12 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<class AFaller> FallerClass;
 
+	UFUNCTION()
+		void IncrementScore();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
+		int32 score;
+
 
 protected:
 	// Called when the game starts or when spawned

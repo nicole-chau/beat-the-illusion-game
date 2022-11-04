@@ -22,6 +22,7 @@ AGrid::AGrid()
 	if (Faller.Object) {
 		FallerClass = (UClass*)Faller.Object->GeneratedClass;
 	}
+
 }
 
 // Called when the game starts or when spawned
@@ -34,6 +35,8 @@ void AGrid::BeginPlay()
 	}
 
 	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
+
+	score = 0;
 }
 
 // Called every frame
@@ -78,6 +81,8 @@ void AGrid::SpawnFloater() {
 	floater->grid = this;
 
 	floaters.push_back(floater);
+
+	floater->HitDelegate.BindDynamic(this, &AGrid::IncrementScore);
 }
 
 void AGrid::SpawnFaller() {
@@ -101,5 +106,9 @@ void AGrid::SpawnFaller() {
 	faller->grid = this;
 
 	// TODO: add to faller list
+}
+
+void AGrid::IncrementScore() {
+	score += 10;
 }
 
