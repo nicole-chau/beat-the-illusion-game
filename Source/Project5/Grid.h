@@ -47,6 +47,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
 		int32 score;
 
+	float fallerSpeed;
+
 
 protected:
 	// Called when the game starts or when spawned

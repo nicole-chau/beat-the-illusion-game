@@ -37,6 +37,7 @@ void AGrid::BeginPlay()
 	GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 
 	score = 0;
+	fallerSpeed = 3.f;
 }
 
 // Called every frame
@@ -99,16 +100,20 @@ void AGrid::SpawnFaller() {
 
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 1) * CELL_SIZE;
-	AFaller* faller = World->SpawnActor<AFaller>(FallerClass, spawnPos, FRotator(0.f));
+	AFaller* faller = World->SpawnActor<AFaller>(AFaller::StaticClass(), spawnPos, FRotator(0.f));
 
 	faller->xyPos = xyPos;
 	faller->setProperties(shapeType, shapeColor);
 	faller->grid = this;
+	faller->SetSpeed(fallerSpeed);
 
 	// TODO: add to faller list
 }
 
 void AGrid::IncrementScore() {
 	score += 10;
+	if (score % 100 == 0) {
+		fallerSpeed += 1.5f;
+	}
 }
 

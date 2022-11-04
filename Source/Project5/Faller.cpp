@@ -14,12 +14,16 @@ AFaller::AFaller() {
   //CollisionComp->SetCollisionProfileName(TEXT("OverlapAll"));
   //RootComponent = CollisionComp;
 
-  //ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
-  //ProjectileMovement->UpdatedComponent = mesh;
-  //ProjectileMovement->bInitialVelocityInLocalSpace = true;
-  //ProjectileMovement->InitialSpeed = 100.f;
-  //ProjectileMovement->MaxSpeed = 100.f;
-  //ProjectileMovement->bRotationFollowsVelocity = true;
-  //ProjectileMovement->bShouldBounce = true;
-  //ProjectileMovement->ProjectileGravityScale = 0.0f;
+  ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
+  ProjectileMovement->UpdatedComponent = mesh;
+  ProjectileMovement->bInitialVelocityInLocalSpace = true;
+  ProjectileMovement->bRotationFollowsVelocity = true;
+  ProjectileMovement->bShouldBounce = true;
+  ProjectileMovement->ProjectileGravityScale = 0.0f;
+}
+
+void AFaller::SetSpeed(float speed) {
+	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, -speed);
+	ProjectileMovement->InitialSpeed = speed;
+	ProjectileMovement->MaxSpeed = speed;
 }

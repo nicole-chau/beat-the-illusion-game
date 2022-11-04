@@ -12,6 +12,9 @@
 AFloater::AFloater() {
     static ConstructorHelpers::FObjectFinder<USoundCue> successSound(TEXT("SoundCue'/Game/Assets/Sounds/SuccessSound.SuccessSound'"));
     successSoundCue = (USoundCue*)successSound.Object;
+
+    static ConstructorHelpers::FObjectFinder<USoundCue> failureSound(TEXT("SoundCue'/Game/Assets/Sounds/FailureSound.FailureSound'"));
+    failureSoundCue = (USoundCue*)failureSound.Object;
 }
 
 bool inRange(int n, int max) {
@@ -38,8 +41,6 @@ void AFloater::setNewPosition() {
   if (!inRange(newGridPos.X, DEPTH)
         || !inRange(newGridPos.Y, WIDTH)) {
     this->SetActorLocation(originalLocation);
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("set new position"));
-
     return;
   }
 
@@ -81,6 +82,10 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     if (World) {
         if (isSuccess) {
             UGameplayStatics::PlaySoundAtLocation(World, successSoundCue, GetActorLocation());
+        }
+        else {
+            UGameplayStatics::PlaySoundAtLocation(World, failureSoundCue, GetActorLocation());
+
         }
     }
   }

@@ -39,4 +39,7 @@ public:
 
 	TSubclassOf<class AActor> Success;
 	USoundCue* successSoundCue;
+
+	TSubclassOf<class AActor> Failure;
+	USoundCue* failureSoundCue;
 };

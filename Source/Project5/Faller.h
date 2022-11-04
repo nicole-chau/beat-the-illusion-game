@@ -20,5 +20,7 @@ public:
 	FIntVector2 xyPos;
 
 	// Projectile movement component
-	//UProjectileMovementComponent* ProjectileMovement;
+	UProjectileMovementComponent* ProjectileMovement;
+
+	void SetSpeed(float speed);
 };
