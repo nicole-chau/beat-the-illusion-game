@@ -17,7 +17,7 @@ AFaller::AFaller() {
   ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
   ProjectileMovement->UpdatedComponent = mesh;
   ProjectileMovement->bInitialVelocityInLocalSpace = true;
-  ProjectileMovement->bRotationFollowsVelocity = true;
+  ProjectileMovement->bRotationFollowsVelocity = false;
   ProjectileMovement->bShouldBounce = true;
   ProjectileMovement->ProjectileGravityScale = 0.0f;
 }
