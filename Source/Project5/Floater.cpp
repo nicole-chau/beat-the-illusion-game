@@ -57,13 +57,15 @@ void AFloater::setNewPosition() {
 }
 
 void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit) {
-
+    bool isSuccess = false;
   if (OtherActor && (OtherActor != this) && OtherActor->IsA(AFaller::StaticClass())) {
     grid->floaters.erase(std::remove(grid->floaters.begin(), grid->floaters.end(), this));
 
     AFaller *faller = (AFaller*)OtherActor;
     if (faller->color == this->color && faller->type == this->type) {
       GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("YAY hit!"));
+      isSuccess = true;
+      HitDelegate.Execute();
     }
     else {
       GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("NOOOOOOOOOOooooooo miss"));
@@ -74,11 +76,12 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     Destroy();
     OtherActor->Destroy();
 
-    HitDelegate.Execute();
-
+    // sound effects
     UWorld* const World = GetWorld();
     if (World) {
-        UGameplayStatics::PlaySoundAtLocation(World, successSoundCue, GetActorLocation());
+        if (isSuccess) {
+            UGameplayStatics::PlaySoundAtLocation(World, successSoundCue, GetActorLocation());
+        }
     }
   }
 }
