@@ -23,7 +23,3 @@ AFaller::AFaller() {
   //ProjectileMovement->bShouldBounce = true;
   //ProjectileMovement->ProjectileGravityScale = 0.0f;
 }
-
-void AFaller::generateProperties() {
-  AShape::generateProperties();
-}

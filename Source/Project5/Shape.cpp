@@ -53,11 +53,11 @@ void AShape::Tick(float DeltaTime)
 
 }
 
-void AShape::generateProperties() {
-	int shapeType = UKismetMathLibrary::RandomInteger(3);
-	type = static_cast<ShapeType>(shapeType);
+void AShape::setProperties(ShapeType shapeType, ShapeColor shapeColor) {
+	this->type = shapeType;
+	this->color = shapeColor;
 
-	switch (type) {
+	switch (shapeType) {
 	case PRISM:
 		mesh->SetStaticMesh(prismMesh);
 		break;
@@ -69,10 +69,7 @@ void AShape::generateProperties() {
 		break;
 	}
 
-	int colorRand = UKismetMathLibrary::RandomInteger(3);
-	color = static_cast<ShapeColor>(colorRand);
-
-	switch (color) {
+	switch (shapeColor) {
 	case RED:
 		mesh->SetMaterial(0, redMat);
 		break;

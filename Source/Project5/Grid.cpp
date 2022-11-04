@@ -62,13 +62,19 @@ void AGrid::SpawnFloater() {
 
 		gridPos = FIntVector(xPos, yPos, zPos);
 	} while (AlreadyContainsFloater(gridPos));
+
+	// spawn random shape and color
+	int shapeTypeIdx = UKismetMathLibrary::RandomInteger(3);
+	int shapeColorIdx = UKismetMathLibrary::RandomInteger(3);
+	ShapeType shapeType = static_cast<ShapeType>(shapeTypeIdx);
+	ShapeColor shapeColor = static_cast<ShapeColor>(shapeColorIdx);
 	
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
 	AFloater* floater = World->SpawnActor<AFloater>(FloaterClass, spawnPos, FRotator(0.f));
 
 	floater->gridPos = gridPos;
-	floater->generateProperties();
+	floater->setProperties(shapeType, shapeColor);
 	floater->grid = this;
 
 	floaters.push_back(floater);
@@ -81,12 +87,17 @@ void AGrid::SpawnFaller() {
 
 	FIntVector2 xyPos(xPos, yPos);
 
+	// spawn color that matches at least one of the floaters
+	int randFloaterIdx = UKismetMathLibrary::RandomInteger(floaters.size());
+	ShapeType shapeType = floaters[randFloaterIdx]->type;
+	ShapeColor shapeColor = floaters[randFloaterIdx]->color;
+
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 1) * CELL_SIZE;
 	AFaller* faller = World->SpawnActor<AFaller>(FallerClass, spawnPos, FRotator(0.f));
 
 	faller->xyPos = xyPos;
-	faller->generateProperties();
+	faller->setProperties(shapeType, shapeColor);
 	faller->grid = this;
 
 	// TODO: add to faller list

@@ -18,7 +18,6 @@ class PROJECT5_API AFaller : public AShape
 public:
 	AFaller();
 	FIntVector2 xyPos;
-	void generateProperties() override;
 
 	// Projectile movement component
 	//UProjectileMovementComponent* ProjectileMovement;

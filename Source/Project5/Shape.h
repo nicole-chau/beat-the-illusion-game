@@ -60,5 +60,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void generateProperties();
+	virtual void setProperties(ShapeType type, ShapeColor color);
 };

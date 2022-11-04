@@ -5,6 +5,7 @@
 #include "Floater.h"
 #include "Faller.h"
 #include "TimerManager.h"
+#include "Shape.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
