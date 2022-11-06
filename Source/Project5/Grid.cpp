@@ -22,7 +22,6 @@ AGrid::AGrid()
 	if (Faller.Object) {
 		FallerClass = (UClass*)Faller.Object->GeneratedClass;
 	}
-
 }
 
 // Called when the game starts or when spawned
@@ -38,7 +37,7 @@ void AGrid::BeginPlay()
 	score = 0;
 	fallerSpeed = 3.f;
 	SpawnFaller();
-
+	//SpawnLight();
 }
 
 // Called every frame
@@ -109,6 +108,13 @@ void AGrid::SpawnFaller() {
 
 	// TODO: add to faller list
 }
+
+void AGrid::SpawnLight() {
+	UWorld* const World = GetWorld();
+	FVector spawnPos = FVector(0.0f);
+	AGameSpotlight* light = World->SpawnActor<AGameSpotlight>(AGameSpotlight::StaticClass(), spawnPos, FRotator(0.f));
+}
+
 
 void AGrid::IncrementScore() {
 	score += 10;

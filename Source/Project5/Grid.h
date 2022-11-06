@@ -6,6 +6,7 @@
 #include "Faller.h"
 #include "TimerManager.h"
 #include "Shape.h"
+#include "GameSpotlight.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -17,7 +18,7 @@ class AFloater;
 #define HEIGHT 5
 #define DEPTH 3
 
-#define NUM_FLOATERS 4
+#define NUM_FLOATERS 3
 
 #define SPAWN_INTERVAL 10.0f
 
@@ -58,5 +59,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void SpawnFloater();
 	void SpawnFaller();
+	void SpawnLight();
 	bool AlreadyContainsFloater(FIntVector gridPos);
 };
