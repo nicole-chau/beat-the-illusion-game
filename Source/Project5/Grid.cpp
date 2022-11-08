@@ -118,11 +118,11 @@ void AGrid::SpawnLight() {
 
 void AGrid::IncrementScore() {
 	score += 10;
-	if (score % 100 == 0) {
+	if (score % 50 == 0) {
 		fallerSpeed += 1.5f;
 	}
 
-	if (score % 20 == 0) {
+	if (score % 70 == 0) {
 		SpawnFloater();
 	}
 }
