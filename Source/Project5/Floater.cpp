@@ -15,6 +15,12 @@ AFloater::AFloater() {
 
     static ConstructorHelpers::FObjectFinder<USoundCue> failureSound(TEXT("SoundCue'/Game/Assets/Sounds/FailureSound.FailureSound'"));
     failureSoundCue = (USoundCue*)failureSound.Object;
+
+    static ConstructorHelpers::FObjectFinder<USoundCue> alternateSuccessSound(TEXT("SoundCue'/Game/Assets/Sounds/AlternateSuccessSound.AlternateSuccessSound'"));
+    alternateSuccessSoundCue = (USoundCue*)alternateSuccessSound.Object;
+
+    static ConstructorHelpers::FObjectFinder<USoundCue> spawnSound(TEXT("SoundCue'/Game/Assets/Sounds/SpawnSound.SpawnSound'"));
+    spawnSoundCue = (USoundCue*)spawnSound.Object;
 }
 
 bool inRange(int n, int max) {
@@ -100,12 +106,25 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     UWorld* const World = GetWorld();
     if (World) {
         if (isSuccess) {
+          if (grid->score % 150 == 0) {
+            // "Oh yes daddy"
+            UGameplayStatics::PlaySoundAtLocation(World, alternateSuccessSoundCue, GetActorLocation());
+          }
+          else {
             UGameplayStatics::PlaySoundAtLocation(World, successSoundCue, GetActorLocation());
+          }
         }
         else {
             UGameplayStatics::PlaySoundAtLocation(World, failureSoundCue, GetActorLocation());
 
         }
     }
+  }
+}
+
+void AFloater::PlaySpawnSound() {
+  UWorld* const World = GetWorld();
+  if (World) {
+    UGameplayStatics::PlaySoundAtLocation(World, spawnSoundCue, GetActorLocation());
   }
 }

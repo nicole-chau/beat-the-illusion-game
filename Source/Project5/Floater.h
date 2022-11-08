@@ -26,6 +26,7 @@ public:
 	FIntVector gridPos;
 	
 	AFloater();
+	void PlaySpawnSound();
 
 	void Tick(float DeltaTime);
 
@@ -40,9 +41,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		FDelegate HitDelegate;
 
-	TSubclassOf<class AActor> Success;
 	USoundCue* successSoundCue;
-
-	TSubclassOf<class AActor> Failure;
 	USoundCue* failureSoundCue;
+	USoundCue* spawnSoundCue;
+	USoundCue* alternateSuccessSoundCue;
 };

@@ -78,6 +78,7 @@ void AGrid::SpawnFloater() {
 
 	FVector initialScale = FVector(0.01f);
 	floater->SetActorScale3D(initialScale);
+	floater->PlaySpawnSound();
 
 	floater->gridPos = gridPos;
 	floater->setProperties(shapeType, shapeColor);
