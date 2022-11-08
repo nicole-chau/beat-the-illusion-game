@@ -89,15 +89,25 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
     if (faller->color == this->color && faller->type == this->type) {
       //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("YAY hit!"));
       isSuccess = true;
+      grid->currentStreak++;
+      if (grid->currentStreak % 3 == 0) {
+        grid->ClearGrid();
+        grid->SpawnInitialFloaters();
+      }
       HitDelegate.Execute();
     }
     else {
       grid->LoseLife();
+      grid->currentStreak = 0;
       //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("NOOOOOOOOOOooooooo miss"));
     }
 
     grid->SpawnFloater();
     grid->SpawnFaller();
+
+    if (grid->floaters.size() < grid->maxNumFloaters) {
+      grid->SpawnFloater();
+    }
 
     Destroy();
     OtherActor->Destroy();

@@ -27,10 +27,9 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	numLives = 10;
-	
-	for (int i = 0; i < NUM_FLOATERS; ++i) {
-		SpawnFloater();
-	}
+	currentStreak = 0;
+	maxNumFloaters = INITIAL_NUM_FLOATERS;
+	SpawnInitialFloaters();
 
 	//GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 	score = 0;
@@ -127,6 +126,7 @@ void AGrid::IncrementScore() {
 
 	if (score % 70 == 0) {
 		SpawnFloater();
+		maxNumFloaters++;
 	}
 }
 
@@ -141,4 +141,17 @@ FString AGrid::GetNumLivesString() {
 	}
 	return res;
 	//return FString(TEXT("\\u{2665}"));
+}
+
+void AGrid::ClearGrid() {
+	for (auto& floater : floaters) {
+		floater->Destroy();
+	}
+	floaters.clear();
+}
+
+void AGrid::SpawnInitialFloaters() {
+	for (int i = 0; i < INITIAL_NUM_FLOATERS; ++i) {
+		SpawnFloater();
+	}
 }

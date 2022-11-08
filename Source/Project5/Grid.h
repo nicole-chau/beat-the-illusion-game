@@ -18,7 +18,7 @@ class AFloater;
 #define HEIGHT 5
 #define DEPTH 3
 
-#define NUM_FLOATERS 3
+#define INITIAL_NUM_FLOATERS 3
 
 #define SPAWN_INTERVAL 10.0f
 
@@ -57,6 +57,13 @@ public:
 		int32 numLives;
 
 	float fallerSpeed;
+
+	int maxNumFloaters;
+
+	void ClearGrid();
+	void SpawnInitialFloaters();
+
+	int currentStreak;
 
 protected:
 	// Called when the game starts or when spawned
