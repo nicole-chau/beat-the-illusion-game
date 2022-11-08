@@ -82,7 +82,6 @@ void AShape::setProperties(ShapeType shapeType, ShapeColor shapeColor) {
 	}
 
 	//mesh->AttachParent = RootComponent;
-	mesh->SetRelativeScale3D(FVector(2, 2, 2));
 
 	// Generate random orientation about the z-axis
 	FVector axisVector = FVector(0, 0, 1);

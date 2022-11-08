@@ -21,6 +21,23 @@ bool inRange(int n, int max) {
   return n >= 0 && n < max;
 }
 
+// Called every frame
+void AFloater::Tick(float DeltaTime)
+{
+  Super::Tick(DeltaTime);
+
+  FVector scale = this->GetActorScale3D();
+  if (scale.X >= 1.0f) {
+    return;
+  }
+
+  FVector newScale = scale + 6.5 * DeltaTime * scale;
+  if (newScale.X > 1.0f) { // don't let final scale exceed 1, ever
+    newScale = FVector(1.0f);
+  }
+  this->SetActorScale3D(newScale);
+}
+
 void AFloater::BeginPlay() {
   Super::BeginPlay();
   OnActorHit.AddDynamic(this, &AFloater::onHit);

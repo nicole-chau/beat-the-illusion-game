@@ -76,6 +76,9 @@ void AGrid::SpawnFloater() {
 	FVector spawnPos = FVector(gridPos) * CELL_SIZE;
 	AFloater* floater = World->SpawnActor<AFloater>(FloaterClass, spawnPos, FRotator(0.f));
 
+	FVector initialScale = FVector(0.01f);
+	floater->SetActorScale3D(initialScale);
+
 	floater->gridPos = gridPos;
 	floater->setProperties(shapeType, shapeColor);
 	floater->grid = this;

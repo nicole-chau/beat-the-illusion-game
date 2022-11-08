@@ -26,6 +26,9 @@ public:
 	FIntVector gridPos;
 	
 	AFloater();
+
+	void Tick(float DeltaTime);
+
 	UFUNCTION(BlueprintCallable)
 	void setNewPosition();
 
