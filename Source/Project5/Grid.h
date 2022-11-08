@@ -48,6 +48,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
 		int32 score;
 
+	void LoseLife();
+
+	UFUNCTION(BlueprintCallable)
+		FString GetNumLivesString();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
+		int32 numLives;
+
 	float fallerSpeed;
 
 protected:

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Sound/SoundCue.h"
 
 #include "CoreMinimal.h"
 #include "Shape.h"
@@ -27,4 +28,7 @@ public:
 	void SetSpeed(float speed);
 	void IsOffScreen();
 	virtual void Tick(float DeltaTime) override;
+
+	TSubclassOf<class AActor> Miss;
+	USoundCue* missSoundCue;
 };

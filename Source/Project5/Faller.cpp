@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+#include "Kismet/GameplayStatics.h"
 
 #include "Faller.h"
 #include "Grid.h"
@@ -15,6 +15,8 @@ AFaller::AFaller() {
   //CollisionComp->SetNotifyRigidBodyCollision(true);
   //CollisionComp->SetCollisionProfileName(TEXT("OverlapAll"));
   //RootComponent = CollisionComp;
+  static ConstructorHelpers::FObjectFinder<USoundCue> missSound(TEXT("SoundCue'/Game/Assets/Sounds/MissSound.MissSound'"));
+  missSoundCue = (USoundCue*)missSound.Object;
 
   ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
   ProjectileMovement->UpdatedComponent = mesh;
@@ -39,8 +41,13 @@ void AFaller::SetSpeed(float speed) {
 
 void AFaller::IsOffScreen() {
 	FVector currentLocation = this->GetActorLocation();
-	if (currentLocation.Z < -13) {
+	if (currentLocation.Z < -CELL_SIZE) {
 		Destroy();
+    UWorld* const World = GetWorld();
+    if (World) {
+      UGameplayStatics::PlaySoundAtLocation(World, missSoundCue, GetActorLocation());
+    }
 		grid->SpawnFaller();
+    grid->LoseLife();
 	}
 }

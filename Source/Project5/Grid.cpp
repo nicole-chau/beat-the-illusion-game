@@ -1,6 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Grid.h"
 
 #include "Kismet/KismetMathLibrary.h"
@@ -28,6 +26,7 @@ AGrid::AGrid()
 void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
+	numLives = 5;
 	
 	for (int i = 0; i < NUM_FLOATERS; ++i) {
 		SpawnFloater();
@@ -35,7 +34,7 @@ void AGrid::BeginPlay()
 
 	//GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 	score = 0;
-	fallerSpeed = 3.f;
+	fallerSpeed = 3.5f;
 	SpawnFaller();
 	//SpawnLight();
 }
@@ -119,7 +118,7 @@ void AGrid::SpawnLight() {
 void AGrid::IncrementScore() {
 	score += 10;
 	if (score % 50 == 0) {
-		fallerSpeed += 1.5f;
+		fallerSpeed += 0.5f;
 	}
 
 	if (score % 70 == 0) {
@@ -127,3 +126,15 @@ void AGrid::IncrementScore() {
 	}
 }
 
+void AGrid::LoseLife() {
+	numLives -= 1;
+}
+
+FString AGrid::GetNumLivesString() {
+	FString res(TEXT(""));
+	for (int i = 0; i < numLives; ++i) {
+		res += TEXT("meow");
+	}
+	return res;
+	//return FString(TEXT("\\u{2665}"));
+}

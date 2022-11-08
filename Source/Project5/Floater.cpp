@@ -64,12 +64,13 @@ void AFloater::onHit(AActor* SelfActor, class AActor* OtherActor, FVector Normal
 
     AFaller *faller = (AFaller*)OtherActor;
     if (faller->color == this->color && faller->type == this->type) {
-      GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("YAY hit!"));
+      //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("YAY hit!"));
       isSuccess = true;
       HitDelegate.Execute();
     }
     else {
-      GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("NOOOOOOOOOOooooooo miss"));
+      grid->LoseLife();
+      //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("NOOOOOOOOOOooooooo miss"));
     }
 
     grid->SpawnFloater();
