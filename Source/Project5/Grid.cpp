@@ -26,7 +26,7 @@ AGrid::AGrid()
 void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
-	numLives = 5;
+	numLives = 10;
 	
 	for (int i = 0; i < NUM_FLOATERS; ++i) {
 		SpawnFloater();
