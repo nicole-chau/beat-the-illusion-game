@@ -62,8 +62,9 @@ public:
 
 	void ClearGrid();
 	void SpawnInitialFloaters();
-
-	int currentStreak;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
+		int32 currentStreak;
 
 protected:
 	// Called when the game starts or when spawned
