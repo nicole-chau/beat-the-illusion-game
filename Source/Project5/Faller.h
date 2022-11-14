@@ -29,6 +29,9 @@ public:
 	void IsOffScreen();
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+		void Drop();
+
 	TSubclassOf<class AActor> Miss;
 	USoundCue* missSoundCue;
 };

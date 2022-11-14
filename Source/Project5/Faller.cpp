@@ -52,3 +52,10 @@ void AFaller::IsOffScreen() {
     grid->LoseLife();
 	}
 }
+
+void AFaller::Drop() {
+	float dropSpeed = 50.0f;
+	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, -dropSpeed);
+	ProjectileMovement->InitialSpeed = dropSpeed;
+	ProjectileMovement->MaxSpeed = dropSpeed;
+}

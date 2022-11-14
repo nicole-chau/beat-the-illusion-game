@@ -101,7 +101,7 @@ void AGrid::SpawnFaller() {
 
 	UWorld* const World = GetWorld();
 	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 1) * CELL_SIZE;
-	AFaller* faller = World->SpawnActor<AFaller>(AFaller::StaticClass(), spawnPos, FRotator(0.f));
+	AFaller* faller = World->SpawnActor<AFaller>(FallerClass, spawnPos, FRotator(0.f));
 
 	faller->xyPos = xyPos;
 	faller->setProperties(shapeType, shapeColor);
