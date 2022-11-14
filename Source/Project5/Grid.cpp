@@ -100,7 +100,7 @@ void AGrid::SpawnFaller() {
 	ShapeColor shapeColor = floaters[randFloaterIdx]->color;
 
 	UWorld* const World = GetWorld();
-	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 1) * CELL_SIZE;
+	FVector spawnPos = FVector(xPos, yPos, HEIGHT + 3) * CELL_SIZE;
 	AFaller* faller = World->SpawnActor<AFaller>(FallerClass, spawnPos, FRotator(0.f));
 
 	faller->xyPos = xyPos;
