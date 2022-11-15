@@ -57,6 +57,10 @@ public:
 		int32 numLives;
 
 	float fallerSpeed;
+	float fallerSpeedIncrement;
+	int fallerSpeedIncreaseInterval; // eg. every 50 points
+	int floaterIncreaseInterval;
+	int turnOnLightInterval;
 
 	int maxNumFloaters;
 
@@ -65,6 +69,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
 		int32 currentStreak;
+
+	UFUNCTION(BlueprintCallable)
+		void SetupEasyLevel();
+
+	UFUNCTION(BlueprintCallable)
+		void SetupHardLevel();
 
 protected:
 	// Called when the game starts or when spawned
@@ -77,4 +87,5 @@ public:
 	void SpawnFaller();
 	void SpawnLight();
 	bool AlreadyContainsFloater(FIntVector gridPos);
+
 };

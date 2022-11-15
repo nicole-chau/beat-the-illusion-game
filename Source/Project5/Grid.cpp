@@ -2,6 +2,7 @@
 #include "Grid.h"
 
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGrid::AGrid()
@@ -26,14 +27,12 @@ AGrid::AGrid()
 void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
-	numLives = 10;
+
 	currentStreak = 0;
-	maxNumFloaters = INITIAL_NUM_FLOATERS;
 	SpawnInitialFloaters();
 
 	//GetWorldTimerManager().SetTimer(fallerTimer, this, &AGrid::SpawnFaller, SPAWN_INTERVAL, true, 0.0f);
 	score = 0;
-	fallerSpeed = 3.5f;
 	SpawnFaller();
 	//SpawnLight();
 }
@@ -121,7 +120,7 @@ void AGrid::SpawnLight() {
 void AGrid::IncrementScore() {
 	score += 10;
 	if (score % 50 == 0) {
-		fallerSpeed += 0.5f;
+		fallerSpeed += fallerSpeedIncrement;
 	}
 
 	if (score % 70 == 0) {
@@ -154,4 +153,30 @@ void AGrid::SpawnInitialFloaters() {
 	for (int i = 0; i < INITIAL_NUM_FLOATERS; ++i) {
 		SpawnFloater();
 	}
+}
+
+
+void AGrid::SetupEasyLevel() {
+	fallerSpeed = 1.0f;
+	fallerSpeedIncreaseInterval = 70;
+	floaterIncreaseInterval = 100;
+	turnOnLightInterval = 200;
+
+	numLives = 20;
+	maxNumFloaters = INITIAL_NUM_FLOATERS;
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the easy mode!"));
+}
+
+void AGrid::SetupHardLevel() {
+	fallerSpeed = 3.5f;
+	fallerSpeedIncreaseInterval = 50;
+	floaterIncreaseInterval = 70;
+	turnOnLightInterval = 100;
+
+	numLives = 10;
+	maxNumFloaters = INITIAL_NUM_FLOATERS;
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the hard mode!"));
+
 }
