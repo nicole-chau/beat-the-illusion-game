@@ -54,7 +54,7 @@ void AFaller::IsOffScreen() {
 }
 
 void AFaller::Drop() {
-	float dropSpeed = 50.0f;
+	float dropSpeed = 100.0f;
 	ProjectileMovement->Velocity = FVector(0.0f, 0.0f, -dropSpeed);
 	ProjectileMovement->InitialSpeed = dropSpeed;
 	ProjectileMovement->MaxSpeed = dropSpeed;

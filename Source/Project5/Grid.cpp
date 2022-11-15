@@ -175,7 +175,7 @@ void AGrid::SetupEasyLevel() {
 	numLives = 20;
 	maxNumFloaters = INITIAL_NUM_FLOATERS;
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the easy mode!"));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the easy mode!"));
 }
 
 void AGrid::SetupHardLevel() {
@@ -187,6 +187,6 @@ void AGrid::SetupHardLevel() {
 	numLives = 10;
 	maxNumFloaters = INITIAL_NUM_FLOATERS;
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the hard mode!"));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("You are playing the hard mode!"));
 
 }
