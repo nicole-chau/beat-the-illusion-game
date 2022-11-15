@@ -8,6 +8,9 @@
 #include "Shape.h"
 #include "GameSpotlight.h"
 
+#include "SoundDefinitions.h"
+#include "Sound/SoundCue.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Grid.generated.h"
@@ -75,6 +78,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void SetupHardLevel();
+
+	USoundCue* backgroundSoundCue;
 
 protected:
 	// Called when the game starts or when spawned

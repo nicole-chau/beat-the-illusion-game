@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Grid.h"
 
+
+
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -21,6 +23,9 @@ AGrid::AGrid()
 	if (Faller.Object) {
 		FallerClass = (UClass*)Faller.Object->GeneratedClass;
 	}
+
+	static ConstructorHelpers::FObjectFinder<USoundCue> backgroundSound(TEXT("SoundCue'/Game/Assets/Sounds/BackgroundSound.BackgroundSound'"));
+	backgroundSoundCue = (USoundCue*)backgroundSound.Object;
 }
 
 // Called when the game starts or when spawned
@@ -35,6 +40,11 @@ void AGrid::BeginPlay()
 	score = 0;
 	SpawnFaller();
 	//SpawnLight();
+
+	UWorld* const World = GetWorld();
+	if (World) {
+		UGameplayStatics::PlaySoundAtLocation(World, backgroundSoundCue, GetActorLocation());
+	}
 }
 
 // Called every frame
